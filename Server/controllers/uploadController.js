@@ -1,16 +1,23 @@
-export const uploadPDF = (req, res) => {
+import { createDocumentFromPDF } from "../services/documentService.js";
 
-    if (!req.file) {
-        return res.status(400).json({
-            success: false,
-            message: "No PDF uploaded"
+export async function uploadPDF(req, res, next) {
+    try {
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                message: "Please upload a PDF.",
+            });
+        }
+
+        const document = await createDocumentFromPDF(req.file);
+
+        res.status(201).json({
+            success: true,
+            message: "PDF uploaded successfully.",
+            document,
         });
+
+    } catch (error) {
+        next(error);
     }
-
-    res.status(200).json({
-        success: true,
-        message: "PDF Uploaded Successfully",
-        file: req.file.filename
-    });
-
-};
+}

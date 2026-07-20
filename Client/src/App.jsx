@@ -1,18 +1,18 @@
-import { useState } from "react";
 import Sidebar from "./Sidebar";
 import ChatArea from "./ChatArea";
 
-
-function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
+export default function App() {
   return (
-    <div className="flex">
-      <Sidebar/>
-      <ChatArea/>
-      
+    <div className="h-screen flex overflow-hidden bg-gradient-to-br from-background via-background to-muted/30 text-foreground">
+
+      {/* Sidebar */}
+      <Sidebar />
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col overflow-hidden">
+        <ChatArea />
+      </main>
+
     </div>
   );
 }
-
-export default App;
